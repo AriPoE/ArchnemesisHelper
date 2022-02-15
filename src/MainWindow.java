@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,6 +24,7 @@ public class MainWindow {
 	private JFrame frmArchnemesisHelper;
 	private static String[][] matList;
 	private static String[] tierOne;
+	private static ArrayList<String> inventoryList;
 
 	/**
 	 * Launch the application.
@@ -55,6 +57,7 @@ public class MainWindow {
 	private void initialize() {
 		fill();
 		String configFiles[][] = getConfig();
+		inventoryList = new ArrayList<String>();
 		/*All mods for the Dropdown*/
 		String[] temp = {"Arcane Buffer", "Berserker", "Bloodletter", "Bombardier", "Bonebreaker", "Chaosweaver", "Consecrator", "Deadeye", "Dynamo", "Echoist", "Flameweaver", "Frenzied", "Frostweaver", "Gargantuan", "Hasted", "Incendiary", "Juggernaut", "Malediction", "Opulent", "Overcharged", "Permafrost", "Sentinel", "Soul Conduit", "Steel-Infused", "Stormweaver", "Toxic", "Vampiric", 
 					"Assassin", "Corpse Detonator", "Corrupter", "Drought Bringer", "Entangler", "Executioner", "Flame Strider", "Frost Strider", "Heralding Minions", "Hexer", "Ice Prison", "Magma Barrier", "Mana Siphoner", "Mirror Image", "Necromancer", "Rejuvenating", "Storm Strider", "Abberath-Touched", "Arakaali-Touched", "Brine King-Touched", "Crystal-Skinned", "Effigy", "Empowered Elements",
@@ -67,6 +70,7 @@ public class MainWindow {
 		Collections.sort(SortDem);
 		int counter = 0;
 		for(String tmp : SortDem) {
+			inventoryList.add(tmp);
 			temp[counter] = tmp;
 			counter++;
 		}
@@ -79,7 +83,7 @@ public class MainWindow {
 		
 		JPanel panel = new JPanel();
 		frmArchnemesisHelper.getContentPane().add(panel);
-		panel.setLayout(new GridLayout(0, configFiles.length, 0, 0));
+		panel.setLayout(new GridLayout(0,1 + configFiles.length, 0, 0));
 	    
 		JComboBox cb1 = new JComboBox();
 		cb1.setEditable(true);
@@ -111,6 +115,28 @@ public class MainWindow {
 		/*
 		 * Config-Files can be any number of *.txt - files in config folder. For-Loop to add all the different buttons.
 		 */
+		JButton export = new JButton("Export");
+		panel.add(export);
+		export.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<String> inventory = Calc.go();
+				ArrayList<String> result = new ArrayList<String>();
+				for(String s : inventoryList) {
+					result.add(s);
+					result.add(""+Collections.frequency(inventory, s));
+				}
+				try {
+					FileWriter mW = new FileWriter("export.csv");
+					for(int i=0; i<result.size(); i = i + 2) {
+						mW.write(result.get(i)+";"+result.get(i+1)+"\n");
+					} 
+					mW.close();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
+		
 		for(int i = 0; i<configFiles.length; i++) {
 			JButton configButton = new JButton(configFiles[i][0]);
 			panel.add(configButton);
