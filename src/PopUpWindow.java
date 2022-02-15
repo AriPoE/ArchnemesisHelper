@@ -118,7 +118,6 @@ public class PopUpWindow extends JDialog {
 			addSpaces(current, last);
 			JToggleButton tmpBt = new JToggleButton(s);
 			for(String tmp : inventory) {
-				s = s.replaceAll(" ", "");
 				if(leverNumber >= current) lever = false;
 				if(lever && leverNumber < current) {
 					tmpBt.setSelected(true);

@@ -44,12 +44,6 @@ public class Calc {
 			}
 			matchingMethod();
 		}
-		String[][] matList = MainWindow.getMatList();
-		for(int i = 0; i<matList.length; i ++) {
-			for(int j = 0; j<matList[i].length; j++) {
-				matList[i][j] = matList[i][j].replaceAll(" ", "");
-			}
-		}
 
 		return inventory;
 	}
@@ -68,7 +62,7 @@ public class Calc {
         Imgproc.matchTemplate(img, imgZwei, result, Imgproc.TM_CCOEFF_NORMED);
         Imgproc.threshold(result, result, 0.1, 1, Imgproc.THRESH_TOZERO);
         
-		double threshold = 0.95;
+		double threshold = 0.97;
 		double maxval;
 		
 		

@@ -210,7 +210,7 @@ public class MainWindow {
 			materialList.add(combinedItem);
 		} else {
 			for(int i = 0; i<matList.length; i++) {
-				if(matList[i][0].equals(combinedItem)) {
+				if(matList[i][0].equalsIgnoreCase(combinedItem)) {
 					int counter = 0;
 					materialList.add(matList[i][0]);
 					for(int u = 1; u<matList[i].length; u++) {
