@@ -62,7 +62,7 @@ public class Calc {
         Imgproc.matchTemplate(img, imgZwei, result, Imgproc.TM_CCOEFF_NORMED);
         Imgproc.threshold(result, result, 0.1, 1, Imgproc.THRESH_TOZERO);
         
-		double threshold = 0.97;
+		double threshold = 0.965;
 		double maxval;
 		
 		
