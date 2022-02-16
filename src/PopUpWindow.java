@@ -125,6 +125,7 @@ public class PopUpWindow extends JDialog {
 				}
 				if(tmp.equalsIgnoreCase(s)) {
 					tmpBt.setSelected(true);
+					inventory.remove(tmp);
 					leverNumber = current;
 					lever = true;
 					break;
